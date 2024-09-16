@@ -20,9 +20,9 @@ jobs:
         echo "KAGGLE_USERNAME=${{ secrets.KAGGLE_USERNAME }}" >> $GITHUB_ENV
         echo "KAGGLE_KEY=${{ secrets.KAGGLE_KEY }}" >> $GITHUB_ENV
 
-    # Step 4: Run the Makefile
-    - name: Run Makefile
-      run: docker run --env KAGGLE_USERNAME=${{ secrets.KAGGLE_USERNAME }} --env KAGGLE_KEY=${{ secrets.KAGGLE_KEY }} ml-fitbit-fitness-tracker make all
+    # Step 4: Run the Docker container
+    - name: Run Docker container
+      run: docker run --env KAGGLE_USERNAME=${{ secrets.KAGGLE_USERNAME }} --env KAGGLE_KEY=${{ secrets.KAGGLE_KEY }} ml-fitbit-fitness-tracker
 
     # Step 5: Upload coverage badge
     - name: Upload coverage badge
