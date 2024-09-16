@@ -1,26 +1,18 @@
-# Variables
-DATA_DIR = data/
-VENV = .venv
+# Use an official Python runtime as a parent image
+FROM python:3.9-slim
 
-# Default command
-.PHONY: all
-all: install_env download_data run_script cleanup
+# Set the working directory in the container
+WORKDIR /app
 
-# 1. Set up virtual environment and install dependencies
-install_env:
-    python3 -m venv $(VENV)
-    . $(VENV)/bin/activate && pip install -r requirements.txt
+# Install make and other dependencies
+RUN apt-get update && apt-get install -y make
 
-# 2. Download the dataset using Kaggle API and unzip it
-download_data:
-    . $(VENV)/bin/activate && kaggle datasets download -d arashnic/fitbit -p $(DATA_DIR)
-    unzip -o $(DATA_DIR)/*.zip -d $(DATA_DIR)
-    rm $(DATA_DIR)/*.zip
+# Install Python dependencies
+COPY requirements.txt /app/
+RUN pip install --no-cache-dir -r requirements.txt
 
-# 3. Run the Python script
-run_script:
-    . $(VENV)/bin/activate && python scripts/main.py
+# Copy the rest of the application code
+COPY . /app
 
-# 4. Cleanup virtual environment
-cleanup:
-    rm -rf $(VENV)
+# Command to run the application
+CMD ["make", "all"]
