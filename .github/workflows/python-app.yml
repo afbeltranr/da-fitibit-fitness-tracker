@@ -25,4 +25,17 @@ jobs:
       run: |
         docker run --env KAGGLE_USERNAME=${{ secrets.KAGGLE_USERNAME }} --env KAGGLE_KEY=${{ secrets.KAGGLE_KEY }} ml-fitbit-fitness-tracker poetry run kaggle datasets download -d arashnic/fitbit --unzip -p data/
 
-    # Step 
+    # Step 5: Run the main Python script
+    - name: Run Python script
+      run: docker run ml-fitbit-fitness-tracker poetry run python scripts/main.py
+
+    # Step 6: Print first rows of the dataset
+    - name: Print first rows of the dataset
+      run: docker run ml-fitbit-fitness-tracker poetry run python scripts/main.py
+
+    # Step 7: Upload coverage badge
+    - name: Upload coverage badge
+      uses: actions/upload-artifact@v2
+      with:
+        name: coverage-badge
+        path: coverage-badge.svg
