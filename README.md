@@ -1,5 +1,7 @@
 # fitbit fitness data tracker 
 
+![CI](https://github.com/afbeltranr/ml-fitbit-fitness-tracker/actions/workflows/python-app.yml/badge.svg)
+
 
 This is the readme file for a project that includes:
 
