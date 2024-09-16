@@ -6,14 +6,21 @@ VENV = .venv
 .PHONY: all
 all: install_env download_data run_script cleanup
 
-# 1. Set up Poetry environment and install dependencies
+# 1. Set up virtual environment and install dependencies
 install_env:
-    poetry install
+    python3 -m venv $(VENV)
+    . $(VENV)/bin/activate && pip install -r requirements.txt
 
-# 2. Download the dataset using Kaggle API
+# 2. Download the dataset using Kaggle API and unzip it
 download_data:
-    poetry run kaggle datasets download -d arashnic/fitbit --unzip -p $(DATA_DIR)
+    . $(VENV)/bin/activate && kaggle datasets download -d arashnic/fitbit -p $(DATA_DIR)
+    unzip -o $(DATA_DIR)/*.zip -d $(DATA_DIR)
+    rm $(DATA_DIR)/*.zip
 
 # 3. Run the Python script
 run_script:
-    poetry run python scripts/main.py
+    . $(VENV)/bin/activate && python scripts/main.py
+
+# 4. Cleanup virtual environment
+cleanup:
+    rm -rf $(VENV)
