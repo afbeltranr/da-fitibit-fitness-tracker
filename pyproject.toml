@@ -19,3 +19,6 @@ jupyter = "^1.0.0"
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.dependencies]
+cython = "^0.29.33"  # Or the latest version compatible with Python 3.xp
