@@ -26,9 +26,6 @@ def show_head_of_first_csv():
     output = df.head().to_string()
     print(output)
     
-    # Ensure the /app directory exists
-    os.makedirs('/app', exist_ok=True)
-    
     with open('/app/output.txt', 'w') as f:
         f.write(output)
     
