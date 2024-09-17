@@ -18,3 +18,10 @@ __pycache__/
 # Ignore system files
 .DS_Store
 Thumbs.db
+
+# Ignore the set_env_vars.sh script
+set_env_vars.sh
+
+
+# ignore environment variables
+.env
