@@ -22,9 +22,9 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    # Step 4: Build Docker image
-    - name: Build Docker image
-      run: docker build -t ml-fitbit-fitness-tracker .
+    # Step 4: Ensure the data directory exists
+    - name: Ensure data directory exists
+      run: mkdir -p data/sample_folder
 
     # Step 5: Set Kaggle credentials as environment variables
     - name: Set Kaggle credentials
@@ -32,9 +32,9 @@ jobs:
         echo "KAGGLE_USERNAME=${{ secrets.KAGGLE_USERNAME }}" >> $GITHUB_ENV
         echo "KAGGLE_KEY=${{ secrets.KAGGLE_KEY }}" >> $GITHUB_ENV
 
-    # Step 6: Run the Docker container
-    - name: Run Docker container
-      run: docker run --env KAGGLE_USERNAME=${{ secrets.KAGGLE_USERNAME }} --env KAGGLE_KEY=${{ secrets.KAGGLE_KEY }} -v ${{ github.workspace }}:/app ml-fitbit-fitness-tracker
+    # Step 6: Run the Python script
+    - name: Run Python script
+      run: python scripts/main.py
 
     # Step 7: Debugging step to list files in workspace
     - name: List files in workspace
@@ -43,8 +43,8 @@ jobs:
     # Step 8: Update README.md with output
     - name: Update README.md
       run: |
-        if [ -f /app/output.txt ]; then
-          head_output=$(cat /app/output.txt)
+        if [ -f output.txt ]; then
+          head_output=$(cat output.txt)
           sed -i '/<!-- OUTPUT START -->/,/<!-- OUTPUT END -->/c\<!-- OUTPUT START -->\n```\n$head_output\n```\n<!-- OUTPUT END -->' README.md
         else
           echo "output.txt not found"
