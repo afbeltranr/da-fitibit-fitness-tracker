@@ -20,7 +20,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install kaggle
+        pip install kaggle pandas
 
     # Step 4: Set Kaggle credentials
     - name: Set Kaggle credentials
@@ -37,6 +37,6 @@ jobs:
         unzip data/*.zip -d data
         rm data/*.zip
 
-    # Step 6: Run the Python script to list directory structure
+    # Step 6: Run the Python script to list directory structure and read CSV file
     - name: Run Python script
       run: python scripts/main.py
