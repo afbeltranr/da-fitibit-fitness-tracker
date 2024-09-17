@@ -1,0 +1,23 @@
+{
+  "name": "Python 3",
+  "dockerFile": "Dockerfile",
+  "context": "..",
+  "postCreateCommand": "pip install -r requirements.txt && pip install ipykernel && python -m ipykernel install --user --name=devcontainer --display-name 'Python (devcontainer)'",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash",
+        "python.pythonPath": "/usr/local/bin/python",
+        "extensions": [
+            "ms-python.python",
+            "ms-toolsai.jupyter",
+            "ms-azuretools.vscode-docker",
+            "GitHub.copilot",
+            "GitHub.copilot-chat"
+        ]
+      },
+      "forwardPorts": [],
+      "remoteUser": "vscode"
+    }
+  }
+}
