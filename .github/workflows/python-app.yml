@@ -1,9 +1,9 @@
-name: Download and Unzip Dataset
+name: Download, Unzip, and Process Dataset
 
 on: [push, pull_request]
 
 jobs:
-  download_and_unzip:
+  process_dataset:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,7 +20,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install kaggle
+        pip install kaggle pandas
 
     # Step 4: Set Kaggle credentials
     - name: Set Kaggle credentials
@@ -37,6 +37,14 @@ jobs:
         unzip data/*.zip -d data
         rm data/*.zip
 
-    # Step 6: Debugging step to list files in data directory
+    # Step 6: Run the Python script to list directory structure and process CSV files
+    - name: Run Python script
+      run: python scripts/main.py
+
+    # Step 7: Debugging step to list files in data directory
     - name: List files in data directory
       run: ls -al data
+
+    # Step 8: Debugging step to list files in repository root
+    - name: List files in repository root
+      run: ls -al
