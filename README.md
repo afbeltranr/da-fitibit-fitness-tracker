@@ -1,6 +1,6 @@
 # Fitbit Fitness Data Tracker
 
-[![Continuous Delivery](https://github.com/afbeltranr/ml-fitibit-fitness-tracker/actions/workflows/python-app.yml/badge.svg)](https://github.com/afbeltranr/ml-fitibit-fitness-tracker/actions/workflows/python-app.yml)
+[![CI](https://github.com/afbeltranr/ml-fitibit-fitness-tracker/actions/workflows/python-app.yml/badge.svg)](https://github.com/afbeltranr/ml-fitibit-fitness-tracker/actions/workflows/python-app.yml)
 
 ## Project Description
 
