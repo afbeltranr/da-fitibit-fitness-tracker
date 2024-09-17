@@ -26,15 +26,15 @@ jobs:
     # Step 4: Set Kaggle credentials as environment variables
     - name: Set Kaggle credentials
       run: |
-        echo "KAGGLE_USERNAME=${{ secrets.KAGGLE_USERNAME }}" > ~/.kaggle/kaggle.json
-        echo "KAGGLE_KEY=${{ secrets.KAGGLE_KEY }}" >> ~/.kaggle/kaggle.json
+        mkdir -p ~/.kaggle
+        echo "{\"username\":\"${{ secrets.KAGGLE_USERNAME }}\",\"key\":\"${{ secrets.KAGGLE_KEY }}\"}" > ~/.kaggle/kaggle.json
         chmod 600 ~/.kaggle/kaggle.json
 
     # Step 5: Download and unzip the dataset
     - name: Download and unzip dataset
       run: |
         mkdir -p data
-        kaggle datasets download -d <dataset-identifier> -p data
+        kaggle datasets download -d <arashnic/fitbit> -p data
         unzip data/*.zip -d data
         rm data/*.zip
 
