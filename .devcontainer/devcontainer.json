@@ -7,17 +7,17 @@
     "vscode": {
       "settings": {
         "terminal.integrated.shell.linux": "/bin/bash",
-        "python.pythonPath": "/usr/local/bin/python",
-        "extensions": [
-            "ms-python.python",
-            "ms-toolsai.jupyter",
-            "ms-azuretools.vscode-docker",
-            "GitHub.copilot",
-            "GitHub.copilot-chat"
-        ]
+        "python.pythonPath": "/usr/local/bin/python"
       },
-      "forwardPorts": [],
-      "remoteUser": "vscode"
+      "extensions": [
+        "ms-python.python",
+        "ms-toolsai.jupyter",
+        "ms-azuretools.vscode-docker",
+        "GitHub.copilot",
+        "GitHub.copilot-chat"
+      ]
     }
-  }
+  },
+  "forwardPorts": [8888],
+  "remoteUser": "vscode"
 }

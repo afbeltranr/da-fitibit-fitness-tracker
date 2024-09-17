@@ -1,25 +1,34 @@
 # Use an official Python runtime as a parent image
 FROM python:3.9-slim
 
-# Set the working directory in the container
-WORKDIR /app
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    git \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
 
-# Install dependencies
-RUN apt-get update && apt-get install -y unzip
-COPY requirements.txt /app/
-RUN pip install --no-cache-dir -r requirements.txt
+# Install GitHub Copilot
+RUN curl -fsSL https://deb.nodesource.com/setup_14.x | bash - \
+    && apt-get install -y nodejs \
+    && npm install -g @githubnext/github-copilot-cli \
+    && github-copilot-cli auth
 
-# Copy the rest of the application code
-COPY . /app
+# Install Jupyter and other Python dependencies
+RUN pip install --no-cache-dir \
+    jupyter \
+    notebook \
+    ipykernel \
+    pandas \
+    numpy \
+    matplotlib \
+    seaborn \
+    scikit-learn
 
-# Set Kaggle credentials as environment variables
-ENV KAGGLE_USERNAME=${KAGGLE_USERNAME}
-ENV KAGGLE_KEY=${KAGGLE_KEY}
+# Set up a working directory
+WORKDIR /workspace
 
-# Download and unzip the dataset
-RUN kaggle datasets download -d arashnic/fitbit -p data/ && \
-    unzip -o data/*.zip -d data/ && \
-    rm data/*.zip
+# Expose Jupyter Notebook port
+EXPOSE 8888
 
-# Command to run the application
-CMD ["python", "scripts/main.py"]
+# Start Jupyter Notebook
+CMD ["jupyter", "notebook", "--ip=0.0.0.0", "--no-browser", "--allow-root"]
