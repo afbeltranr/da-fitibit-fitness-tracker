@@ -37,17 +37,25 @@ jobs:
         unzip data/*.zip -d data
         rm data/*.zip
 
-    # Step 6: Run the Python script to list directory structure and process CSV files
+    # Step 6: Debugging step to list files in data directory
+    - name: List files in data directory
+      run: ls -al data
+
+    # Step 7: Debugging step to list files in subdirectories of data
+    - name: List files in subdirectories of data
+      run: ls -al data/*
+
+    # Step 8: Run the Python script to list directory structure and process CSV files
     - name: Run Python script
       run: python scripts/main.py
 
-    # Step 7: Append the contents of /app/output.txt to README.md
+    # Step 9: Append the contents of /app/output.txt to README.md
     - name: Update README.md
       run: |
         echo -e "\n## Output\n" >> README.md
         cat /app/output.txt >> README.md
 
-    # Step 8: Commit the changes to README.md
+    # Step 10: Commit the changes to README.md
     - name: Commit changes
       run: |
         git config --global user.name 'github-actions[bot]'
@@ -56,10 +64,6 @@ jobs:
         git commit -m 'Update README.md with output from workflow'
         git push
 
-    # Step 9: Debugging step to list files in data directory
-    - name: List files in data directory
-      run: ls -al data
-
-    # Step 10: Debugging step to list files in repository root
+    # Step 11: Debugging step to list files in repository root
     - name: List files in repository root
       run: ls -al
