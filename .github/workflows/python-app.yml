@@ -34,7 +34,7 @@ jobs:
     - name: Download and unzip dataset
       run: |
         mkdir -p data
-        kaggle datasets download -d <arashnic/fitbit> -p data
+        kaggle datasets download -d arashnic/fitbit -p data
         unzip data/*.zip -d data
         rm data/*.zip
 
