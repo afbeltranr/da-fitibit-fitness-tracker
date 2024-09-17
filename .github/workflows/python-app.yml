@@ -21,44 +21,32 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
+        pip install pytest pytest-cov
 
     # Step 4: Run tests and generate coverage report
     - name: Run tests
       run: |
         pytest --cov=your_package --cov-report=xml --cov-report=html
 
-    # Step 5: Generate coverage badge
-    - name: Generate coverage badge
-      run: |
-        pip install coverage-badge
-        coverage-badge -o coverage-badge.svg
-
-    # Step 6: Upload coverage badge
-    - name: Upload coverage badge
-      uses: actions/upload-artifact@v3
-      with:
-        name: coverage-badge
-        path: coverage-badge.svg
-
-    # Step 7: Build Docker image
+    # Step 5: Build Docker image
     - name: Build Docker image
       run: docker build -t ml-fitbit-fitness-tracker .
 
-    # Step 8: Set Kaggle credentials as environment variables
+    # Step 6: Set Kaggle credentials as environment variables
     - name: Set Kaggle credentials
       run: |
         echo "KAGGLE_USERNAME=${{ secrets.KAGGLE_USERNAME }}" >> $GITHUB_ENV
         echo "KAGGLE_KEY=${{ secrets.KAGGLE_KEY }}" >> $GITHUB_ENV
 
-    # Step 9: Run the Docker container
+    # Step 7: Run the Docker container
     - name: Run Docker container
       run: docker run --env KAGGLE_USERNAME=${{ secrets.KAGGLE_USERNAME }} --env KAGGLE_KEY=${{ secrets.KAGGLE_KEY }} -v ${{ github.workspace }}:/app ml-fitbit-fitness-tracker
 
-    # Step 10: Debugging step to list files in workspace
+    # Step 8: Debugging step to list files in workspace
     - name: List files in workspace
       run: ls -al ${{ github.workspace }}
 
-    # Step 11: Update README.md with output
+    # Step 9: Update README.md with output
     - name: Update README.md
       run: |
         if [ -f /app/output.txt ]; then
@@ -69,7 +57,7 @@ jobs:
           exit 1
         fi
 
-    # Step 12: Commit changes
+    # Step 10: Commit changes
     - name: Commit changes
       run: |
         git config --global user.name 'github-actions[bot]'
