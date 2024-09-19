@@ -6,6 +6,8 @@
 
 This project is focused on exploring and analyzing the Fitbit fitness dataset. The primary goal is to perform exploratory data analysis (EDA) to uncover insights and patterns within the data. The project leverages Docker for containerization and continuous integration (CI) to ensure a smooth and automated workflow.
 
+A detailed story of the data handling phase using python is shown in the [ jupyter notebook  ](/notebooks/ExploratoryDataAnalysis.ipynb)
+
 ## Features
 
 - **Exploratory Data Analysis (EDA)**: Analyze the Fitbit dataset to uncover insights and patterns.
